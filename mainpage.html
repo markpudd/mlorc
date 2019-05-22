@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="static/bootstrap4/css/bootstrap.min.css" crossorigin="anonymous">
+
+    <script src="static/chart.js/dist/Chart.js"></script>
+    <title>ML Data</title>
+  <!--  <meta http-equiv="refresh" content="3"> -->
+  </head>
+    <body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+
+          <a class="nav-link" href="\">ML Orc <span class="sr-only">(current)</span></a>
+        </li>
+
+
+      </ul>
+    </div>
+  </nav>
+
+<br></br>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h4>Accuracy</h4>
+          <canvas  id="accChart" class="img-fluid" height=300 ></canvas>
+        </div>
+        <div class="col">
+          <h4>Loss</h4>
+          <canvas id="lossChart" class="img-fluid" height=300 ></canvas>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4>Cross Validation Accuracy</h4>
+          <canvas id="valaccChart" class="img-fluid" height=300 ></canvas>
+        </div>
+        <div class="col">
+          <h4>Cross Validation Loss</h4>
+          <canvas id="vallossChart"  class="img-fluid" height=300 ></canvas>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2>Completed Models</h2>
+        <ul class="list-group">
+      {{range .Runs}}
+        <li class="list-group-item"><a href="/download/{{.}}">{{.}}</a></li>
+      {{end}}
+      </ul>
+    </div>
+    <script>
+
+    var ctx0 = document.getElementById('accChart').getContext('2d');
+    var myChart0 = new Chart(ctx0, {
+         type: 'line',
+         data: {{.AccData}},
+         options: {animation: false}
+    });
+    var ctx1 = document.getElementById('lossChart').getContext('2d');
+    var myChart1 = new Chart(ctx1, {
+         type: 'line',
+         data: {{.LossData}},
+         options: {animation: false}
+    });
+
+    var ctx2 = document.getElementById('valaccChart').getContext('2d');
+    var myChart2 = new Chart(ctx2, {
+         type: 'line',
+         data: {{.Val_acc}},
+         options: {animation: false}
+    });
+    var ctx3 = document.getElementById('vallossChart').getContext('2d');
+    var myChart3 = new Chart(ctx3, {
+         type: 'line',
+         data: {{.Val_loss}},
+         options: {animation: false}
+    });
+    </script>
+    <script src="static/dist/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="static/bootstrap4/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</html>
